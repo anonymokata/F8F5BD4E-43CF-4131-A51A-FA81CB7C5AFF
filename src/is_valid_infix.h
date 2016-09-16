@@ -3,6 +3,6 @@
 
 #include <stdbool.h>
 
-bool is_valid_infix(char *infix_string);
+bool is_valid_infix(const char *infix_string);
 
 #endif /* IS_VALID_INFIX_H */
