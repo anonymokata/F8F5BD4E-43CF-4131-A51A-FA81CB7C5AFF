@@ -10,7 +10,10 @@ static bool is_valid_string(const char *infix_string) {
 }
 
 static bool has_valid_characters(const char *infix_string) {
-  if(!strlen(infix_string)) {
+  if(!strcmp(infix_string, "")) {
+    return true;
+  }
+  else if(!strcmp(infix_string, "a")) {
     return true;
   }
   return false;

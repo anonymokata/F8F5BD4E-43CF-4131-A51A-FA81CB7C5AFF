@@ -36,6 +36,13 @@ START_TEST(WhenGiven_3_ReturnFalse)
 }
 END_TEST
 
+START_TEST(WhenGiven_a_ReturnTrue)
+{
+  bool return_value = is_valid_infix("a");
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -49,6 +56,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_1_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_2_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_3_ReturnFalse);
+    tcase_add_test(tc1_1, WhenGiven_a_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
