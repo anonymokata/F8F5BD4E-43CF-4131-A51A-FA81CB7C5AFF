@@ -1,9 +1,6 @@
 #include <check.h>
 #include "../src/is_valid_infix.h"
 
-#define ASCII_LOWERCASE_LOW 97
-#define ASCII_LOWERCASE_HIGH 122
-
 START_TEST(WhenGivenEmptyStringReturnsTrue)
 {
   bool return_value = is_valid_infix("");
