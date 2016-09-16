@@ -10,16 +10,10 @@ static bool is_valid_string(const char *infix_string) {
 }
 
 static bool has_valid_characters(const char *infix_string) {
-  if(!strcmp(infix_string, "1")) {
-    return false;
+  if(!strlen(infix_string)) {
+    return true;
   }
-  else if(!strcmp(infix_string, "2")) {
-    return false;
-  }
-  else if(!strcmp(infix_string, "3")) {
-    return false;
-  }
-  return true;
+  return false;
 }
 
 bool is_valid_infix(const char *infix_string) {
