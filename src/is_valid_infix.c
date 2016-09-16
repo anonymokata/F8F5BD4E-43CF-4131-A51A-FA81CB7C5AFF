@@ -13,6 +13,9 @@ static bool has_valid_characters(const char *infix_string) {
   if(!strcmp(infix_string, "1")) {
     return false;
   }
+  else if(!strcmp(infix_string, "2")) {
+    return false;
+  }
   return true;
 }
 
