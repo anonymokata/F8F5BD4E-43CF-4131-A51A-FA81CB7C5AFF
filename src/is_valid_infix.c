@@ -51,6 +51,14 @@ static int count_closed_brackets(const char *infix_string) {
   return closed_bracket_count;
 }
 
+static bool has_equal_number_of_open_close_brackets(const char *infix_string) {
+  if( count_open_brackets(infix_string) == count_closed_brackets(infix_string) ) {
+    return true;
+  }
+  return false;
+
+}
+
 static bool has_open_brackets_before_closed_brackets(const char *infix_string) {
   int i;
   int closed_bracket_count = 0;
@@ -70,7 +78,7 @@ static bool has_open_brackets_before_closed_brackets(const char *infix_string) {
 }
 
 static bool has_valid_brackets(const char *infix_string) {
-  if(  ( count_open_brackets(infix_string) == count_closed_brackets(infix_string) ) &&
+  if( has_equal_number_of_open_close_brackets(infix_string) &&
       has_open_brackets_before_closed_brackets(infix_string) ) {
     return true;
   }
