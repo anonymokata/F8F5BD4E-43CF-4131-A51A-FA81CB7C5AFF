@@ -14,9 +14,6 @@ static bool is_valid_string(const char *infix_string) {
 
 static bool has_valid_characters(const char *infix_string) {
   int i;
-  char *p;
-  char myChar;
-  bool hasValidCharacters = false;
 
   if(!strcmp(infix_string, "")) {
     return true;
