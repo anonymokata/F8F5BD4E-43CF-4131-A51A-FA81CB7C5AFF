@@ -64,6 +64,13 @@ START_TEST(WhenGiven_d_PLUS_e_PLUS_f_PLUS_g_PLUS_h_PLUS_i_ReturnTrue)
 }
 END_TEST
 
+START_TEST(WhenGiven_j_MULT_k_MULT_l_PLUS_m_PLUS_n_DIV_o_ReturnTrue)
+{
+  bool return_value = is_valid_infix("j*k*l+m+n/o");
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -81,6 +88,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_a_PLUS_b_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_a_PLUS_b_PLUS_c_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_d_PLUS_e_PLUS_f_PLUS_g_PLUS_h_PLUS_i_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_j_MULT_k_MULT_l_PLUS_m_PLUS_n_DIV_o_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);

@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-static char valid_characters[] = " abcdefghi+";
+static char valid_characters[] = " abcdefghijklmno+*/";
 
 static bool is_valid_string(const char *infix_string) {
   if(infix_string == 0) {
