@@ -57,6 +57,13 @@ START_TEST(WhenGiven_aPLUSbPLUSc_ReturnTrue)
 }
 END_TEST
 
+START_TEST(WhenGiven_d_PLUS_e_PLUS_f_PLUS_g_PLUS_h_PLUS_i_ReturnTrue)
+{
+  bool return_value = is_valid_infix("d+e+f+g+h+i");
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -73,6 +80,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_a_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_aPLUSb_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_aPLUSbPLUSc_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_d_PLUS_e_PLUS_f_PLUS_g_PLUS_h_PLUS_i_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
