@@ -71,6 +71,20 @@ START_TEST(WhenGiven_j_MULT_k_MULT_l_PLUS_m_PLUS_n_DIV_o_ReturnTrue)
 }
 END_TEST
 
+START_TEST(WhenGiven_p_POW_q_MULT_r_MULT_s_PLUS_t_PLUS_u_SPACE_ReturnTrue)
+{
+  bool return_value = is_valid_infix("p^q*r*s+t+u ");
+  ck_assert(return_value == true);
+}
+END_TEST
+
+START_TEST(WhenGiven_OPEN_v_PLUS_w_CLOSED_MULT_x_MULT_y_PLUS_z_ReturnTrue)
+{
+  bool return_value = is_valid_infix("(v+w)*x*y+z");
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -89,6 +103,8 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_a_PLUS_b_PLUS_c_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_d_PLUS_e_PLUS_f_PLUS_g_PLUS_h_PLUS_i_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_j_MULT_k_MULT_l_PLUS_m_PLUS_n_DIV_o_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_p_POW_q_MULT_r_MULT_s_PLUS_t_PLUS_u_SPACE_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_OPEN_v_PLUS_w_CLOSED_MULT_x_MULT_y_PLUS_z_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
