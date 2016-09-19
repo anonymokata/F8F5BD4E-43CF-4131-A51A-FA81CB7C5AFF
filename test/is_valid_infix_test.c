@@ -85,6 +85,13 @@ START_TEST(WhenGiven_OPEN_v_PLUS_w_CLOSED_MULT_x_MULT_y_PLUS_z_ReturnTrue)
 }
 END_TEST
 
+START_TEST(WhenGiven_Missing_Closed_Bracket_ReturnFalse)
+{
+  bool return_value = is_valid_infix("(a+(b)");
+  ck_assert(return_value == false);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -105,6 +112,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_j_MULT_k_MULT_l_PLUS_m_PLUS_n_DIV_o_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_p_POW_q_MULT_r_MULT_s_PLUS_t_PLUS_u_SPACE_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_OPEN_v_PLUS_w_CLOSED_MULT_x_MULT_y_PLUS_z_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_Missing_Closed_Bracket_ReturnFalse);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
