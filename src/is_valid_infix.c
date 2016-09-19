@@ -1,6 +1,9 @@
 #include "is_valid_infix.h"
 
 #include <string.h>
+#include <stdio.h>
+
+static char valid_characters[] = " abc+";
 
 static bool is_valid_string(const char *infix_string) {
   if(infix_string == 0) {
@@ -10,19 +13,21 @@ static bool is_valid_string(const char *infix_string) {
 }
 
 static bool has_valid_characters(const char *infix_string) {
+  int i;
+  char *p;
+  char myChar;
+  bool hasValidCharacters = false;
+
   if(!strcmp(infix_string, "")) {
     return true;
   }
-  else if(!strcmp(infix_string, "a")) {
-    return true;
+
+  for(i=0; i < strlen(infix_string); ++i) {
+    if( strchr(valid_characters, infix_string[i]) == NULL ) {
+      return false;
+    }
   }
-  else if(!strcmp(infix_string, "a+b")) {
-    return true;
-  }
-  else if(!strcmp(infix_string, "a+b+c")) {
-    return true;
-  }
-  return false;
+  return true;
 }
 
 bool is_valid_infix(const char *infix_string) {
