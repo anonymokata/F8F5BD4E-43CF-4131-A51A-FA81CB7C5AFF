@@ -51,8 +51,27 @@ static int count_closed_brackets(const char *infix_string) {
   return closed_bracket_count;
 }
 
+static bool has_open_brackets_before_closed_brackets(const char *infix_string) {
+  int i;
+  int closed_bracket_count = 0;
+  int open_bracket_count = 0;
+
+  for(i=0; i < strlen(infix_string); ++i) {
+    if( infix_string[i] == '(' ) {
+      ++open_bracket_count;
+    }
+    if( infix_string[i] == ')' ) {
+      ++closed_bracket_count;
+    }
+    if( closed_bracket_count > open_bracket_count )
+      return false;
+  }
+  return true;
+}
+
 static bool has_valid_brackets(const char *infix_string) {
-  if( count_open_brackets(infix_string) == count_closed_brackets(infix_string) ) {
+  if(  ( count_open_brackets(infix_string) == count_closed_brackets(infix_string) ) &&
+      has_open_brackets_before_closed_brackets(infix_string) ) {
     return true;
   }
   return false;
