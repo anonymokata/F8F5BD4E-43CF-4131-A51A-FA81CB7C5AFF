@@ -136,13 +136,10 @@ static bool is_valid_operand_operator_operand_sequence(const char *infix_string)
 }
 
 bool is_valid_infix(const char *infix_string) {
-  if( is_null_string(infix_string) ||
-      is_empty_string(infix_string) ||
-      !has_valid_characters(infix_string) ||
-      !has_valid_brackets(infix_string) ||
-      !is_valid_operand_operator_operand_sequence(infix_string) ||
-      !has_no_operator_first(infix_string)  ) {
-    return false;
-  }
-  return true;
+  return !is_null_string(infix_string) &&
+      !is_empty_string(infix_string) &&
+      has_valid_characters(infix_string) &&
+      has_valid_brackets(infix_string) &&
+      is_valid_operand_operator_operand_sequence(infix_string) &&
+      has_no_operator_first(infix_string);
 }
