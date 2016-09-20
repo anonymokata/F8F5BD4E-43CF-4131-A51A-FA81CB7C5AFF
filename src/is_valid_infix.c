@@ -3,8 +3,6 @@
 
 #include <string.h>
 
-static const char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+-*/()";
-
 static bool is_valid_string(const char *infix_string) {
   if(infix_string == 0) {
     return false;
@@ -14,6 +12,7 @@ static bool is_valid_string(const char *infix_string) {
 
 static bool has_valid_characters(const char *infix_string) {
   int i;
+  const char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+-*/()";
 
   if(!strcmp(infix_string, "")) {
     return false;
