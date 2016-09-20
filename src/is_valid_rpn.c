@@ -16,7 +16,7 @@ static bool is_operation(const char character) {
 
 static bool is_operand(const char character) {
   int i;
-  const char operands[] = "abcd";
+  const char operands[] = "abcdefghijk";
 
   for(i=0; i < strlen(operands); ++i) {
     if( operands[i] == character ) {
