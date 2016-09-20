@@ -1,30 +1,7 @@
+#include "rpn_infix_utilities.h"
 #include "is_valid_infix.h"
 
 #include <string.h>
-
-static bool is_operator(const char character) {
-  int i;
-  const char operators[] = "+-*/^";
-
-  for(i=0; i < strlen(operators); ++i) {
-    if( operators[i] == character ) {
-      return true;
-    }
-  }
-  return false;
-}
-
-static bool is_operand(const char character) {
-  int i;
-  const char operands[] = "abcdefghijklmnopqrstuvwxyz";
-
-  for(i=0; i < strlen(operands); ++i) {
-    if( operands[i] == character ) {
-      return true;
-    }
-  }
-  return false;
-}
 
 static bool has_one_less_operator_than_operand(const char *rpn_string) {
   int i;
