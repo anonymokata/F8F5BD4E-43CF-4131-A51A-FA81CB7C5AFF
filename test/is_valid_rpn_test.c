@@ -80,27 +80,27 @@ END_TEST
 
 int main(void)
 {
-    Suite *s1 = suite_create("Core");
-    TCase *tc1_1 = tcase_create("is_valid_rpn_tests");
-    SRunner *sr = srunner_create(s1);
-    int nf;
+  Suite *s1 = suite_create("Core");
+  TCase *tc1_1 = tcase_create("is_valid_rpn_tests");
+  SRunner *sr = srunner_create(s1);
+  int nf;
 
-    suite_add_tcase(s1, tc1_1);
-    tcase_add_test(tc1_1, WhenGivenEmptyStringReturnsFalse);
-    tcase_add_test(tc1_1, WhenGiven_a_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_b_a_PLUS_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_a_b_ReturnFalse);
-    tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_ReturnFalse);
-    tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_PLUS_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_ReturnFalse);
-    tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_MINUS_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_e_f_g_h_i_j_k_6PLUS_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_l_m_o_p_q_r_s_7SUB_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_t_u_v_w_x_y_z_6SUB_ReturnTrue);
+  suite_add_tcase(s1, tc1_1);
+  tcase_add_test(tc1_1, WhenGivenEmptyStringReturnsFalse);
+  tcase_add_test(tc1_1, WhenGiven_a_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_b_a_PLUS_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_a_b_ReturnFalse);
+  tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_ReturnFalse);
+  tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_PLUS_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_ReturnFalse);
+  tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_MINUS_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_e_f_g_h_i_j_k_6PLUS_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_l_m_o_p_q_r_s_7SUB_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGiven_t_u_v_w_x_y_z_6SUB_ReturnTrue);
 
-    srunner_run_all(sr, CK_ENV);
-    nf = srunner_ntests_failed(sr);
-    srunner_free(sr);
+  srunner_run_all(sr, CK_ENV);
+  nf = srunner_ntests_failed(sr);
+  srunner_free(sr);
 
-    return nf == 0 ? 0 : 1;
+  return nf == 0 ? 0 : 1;
 }
