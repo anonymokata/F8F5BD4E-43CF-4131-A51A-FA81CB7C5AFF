@@ -151,6 +151,13 @@ static bool has_valid_brackets(const char *infix_string) {
   return false;
 }
 
+static bool has_no_operation_first(const char *infix_string) {
+  if( is_operation(infix_string[0] ) ) {
+    return false;
+  }
+  return true;
+}
+
 static bool is_valid_operand_operation_operand_sequence(const char *infix_string) {
   int i;
   const int infix_length = strlen(infix_string);
@@ -167,8 +174,8 @@ static bool is_valid_operand_operation_operand_sequence(const char *infix_string
 bool is_valid_infix(const char *infix_string) {
   if( !is_valid_string(infix_string) || !has_valid_characters(infix_string) ||
       !has_valid_brackets(infix_string) ||
-      !is_valid_operand_operation_operand_sequence(infix_string)
-    ) {
+      !is_valid_operand_operation_operand_sequence(infix_string) ||
+      !has_no_operation_first(infix_string)  ) {
     return false;
   }
   return true;
