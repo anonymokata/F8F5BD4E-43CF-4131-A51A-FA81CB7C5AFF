@@ -42,15 +42,14 @@ static bool has_valid_operand_operator_sequence(const char *rpn_string) {
   return true;
 }
 
+static bool is_first_character_operator(const char *rpn_string) {
+  return is_operator(rpn_string[0]);
+}
+
 bool is_valid_rpn(const char *rpn_string) {
-  if( is_null_string(rpn_string) || is_empty_string(rpn_string) ) {
-    return false;
-  }
-  else if (is_operator(rpn_string[0])) {
-    return false;
-  }
-  else if (!has_valid_operand_operator_sequence(rpn_string)) {
-    return false;
-  }
-  return has_one_less_operator_than_operand(rpn_string);
+  return !is_null_string(rpn_string) &&
+      !is_empty_string(rpn_string) &&
+      !is_first_character_operator(rpn_string) &&
+      has_valid_operand_operator_sequence(rpn_string) &&
+      has_one_less_operator_than_operand(rpn_string);
 }
