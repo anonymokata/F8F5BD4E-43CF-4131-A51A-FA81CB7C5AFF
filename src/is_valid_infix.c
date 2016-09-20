@@ -77,9 +77,23 @@ static bool has_open_brackets_before_closed_brackets(const char *infix_string) {
   return true;
 }
 
+static bool has_no_empty_brackets(const char *infix_string) {
+  int i;
+  const int infix_length = strlen(infix_string);
+
+  for(i=0; i < infix_length; ++i) {
+    if( (infix_string[i] == '(') && ((i+1) != infix_length) &&
+        (infix_string[i+1] == ')')) {
+          return false;
+    }
+  }
+  return true;
+}
+
 static bool has_valid_brackets(const char *infix_string) {
   if( has_equal_number_of_open_close_brackets(infix_string) &&
-      has_open_brackets_before_closed_brackets(infix_string) ) {
+      has_open_brackets_before_closed_brackets(infix_string) &&
+      has_no_empty_brackets(infix_string) ) {
     return true;
   }
   return false;

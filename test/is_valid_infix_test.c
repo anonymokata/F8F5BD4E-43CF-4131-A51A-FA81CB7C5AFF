@@ -94,7 +94,7 @@ END_TEST
 
 START_TEST(WhenGiven_Closed_Bracket_Closed_Bracket_ReturnFalse)
 {
-  bool return_value = is_valid_infix(")(");
+  bool return_value = is_valid_infix("()");
   ck_assert(return_value == false);
 }
 END_TEST
@@ -134,6 +134,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_p_POW_q_MULT_r_MULT_s_PLUS_t_PLUS_u_SPACE_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_OPEN_v_PLUS_w_CLOSED_MULT_x_MULT_y_PLUS_z_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_Missing_Closed_Bracket_ReturnFalse);
+    tcase_add_test(tc1_1, WhenGiven_Closed_Bracket_Closed_Bracket_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_Closed_Bracket_Open_Bracket_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_Operand_Operand_Without_Operation_ReturnFalse);
 
