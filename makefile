@@ -1,18 +1,17 @@
 CC=gcc
 COMPILER_FLAGS=-std=c90 -g -O0
 LDFLAGS=$(shell pkg-config --cflags --libs check) -lc -lm -o
-APP=./rpn_converter_test
-SOURCES=./src/is_valid_infix.c
-TESTS=./test/is_valid_infix_test.c
 
-build: $(SOURCES) $(TESTS)
-	$(CC) $(COMPILER_FLAGS) $(SOURCES) $(TESTS) $(LDFLAGS) $(APP)
+build_is_valid_infix: ./src/is_valid_infix.c ./test/is_valid_infix_test.c
+	$(CC) $(COMPILER_FLAGS) ./src/is_valid_infix.c ./test/is_valid_infix_test.c $(LDFLAGS) ./is_valid_infix_test.exe
+	./is_valid_infix_test.exe
 
-test: build
-	$(APP)
+test: build_is_valid_infix
+
 
 clean:
 	rm -rf ./src/*.o
 	rm -rf ./test/*.o
 	rm -rf $(APP)
 	rm -rf *.dSYM
+	rm -rf *.exe
