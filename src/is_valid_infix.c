@@ -1,7 +1,6 @@
 #include "is_valid_infix.h"
 
 #include <string.h>
-#include <stdio.h>
 
 static char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+*/()";
 
