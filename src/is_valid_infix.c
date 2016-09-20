@@ -101,12 +101,12 @@ static bool is_operand(const char character) {
   return false;
 }
 
-static bool is_operation(const char character) {
+static bool is_operator(const char character) {
   int i;
-  const char operations[] = "^+-*/";
+  const char operators[] = "^+-*/";
 
-  for(i=0; i < strlen(operations); ++i) {
-    if( operations[i] == character ) {
+  for(i=0; i < strlen(operators); ++i) {
+    if( operators[i] == character ) {
       return true;
     }
   }
@@ -150,14 +150,14 @@ static bool has_valid_brackets(const char *infix_string) {
   return false;
 }
 
-static bool has_no_operation_first(const char *infix_string) {
-  if( is_operation(infix_string[0] ) ) {
+static bool has_no_operator_first(const char *infix_string) {
+  if( is_operator(infix_string[0] ) ) {
     return false;
   }
   return true;
 }
 
-static bool is_valid_operand_operation_operand_sequence(const char *infix_string) {
+static bool is_valid_operand_operator_operand_sequence(const char *infix_string) {
   int i;
   const int infix_length = strlen(infix_string);
 
@@ -173,8 +173,8 @@ static bool is_valid_operand_operation_operand_sequence(const char *infix_string
 bool is_valid_infix(const char *infix_string) {
   if( !is_valid_string(infix_string) || !has_valid_characters(infix_string) ||
       !has_valid_brackets(infix_string) ||
-      !is_valid_operand_operation_operand_sequence(infix_string) ||
-      !has_no_operation_first(infix_string)  ) {
+      !is_valid_operand_operator_operand_sequence(infix_string) ||
+      !has_no_operator_first(infix_string)  ) {
     return false;
   }
   return true;

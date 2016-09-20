@@ -2,12 +2,12 @@
 
 #include <string.h>
 
-static bool is_operation(const char character) {
+static bool is_operator(const char character) {
   int i;
-  const char operations[] = "+-*/^";
+  const char operators[] = "+-*/^";
 
-  for(i=0; i < strlen(operations); ++i) {
-    if( operations[i] == character ) {
+  for(i=0; i < strlen(operators); ++i) {
+    if( operators[i] == character ) {
       return true;
     }
   }
@@ -30,25 +30,49 @@ static bool has_one_less_operator_than_operand(const char *rpn_string) {
   int i;
   const int rpn_length = strlen(rpn_string);
   int operand_count = 0;
-  int operation_count = 0;
+  int operator_count = 0;
 
   for(i=0; i < rpn_length; ++i) {
     if( is_operand(rpn_string[i]) ) {
       ++operand_count;
     }
-    else if ( is_operation(rpn_string[i]) ) {
-      ++operation_count;
+    else if ( is_operator(rpn_string[i]) ) {
+      ++operator_count;
     }
   }
 
-  return (operand_count - 1) == operation_count;
+  return (operand_count - 1) == operator_count;
+}
+
+static bool has_valid_operand_operator_sequence(const char *rpn_string) {
+  int i;
+  const int rpn_length = strlen(rpn_string);
+  int operand_count = 0;
+  int operator_count = 0;
+
+  for(i=0; i < rpn_length; ++i) {
+    if( is_operand(rpn_string[i]) ) {
+      ++operand_count;
+    }
+    else if ( is_operator(rpn_string[i]) ) {
+      ++operator_count;
+    }
+    if( operand_count <= operator_count ) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 bool is_valid_rpn(const char *rpn_string) {
   if(rpn_string == 0 || rpn_string == "") {
     return false;
   }
-  else if (is_operation(rpn_string[0])) {
+  else if (is_operator(rpn_string[0])) {
+    return false;
+  }
+  else if (!has_valid_operand_operator_sequence(rpn_string)) {
     return false;
   }
   return has_one_less_operator_than_operand(rpn_string);
