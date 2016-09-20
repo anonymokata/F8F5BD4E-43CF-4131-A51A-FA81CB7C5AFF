@@ -65,7 +65,7 @@ START_TEST(WhenGiven_e_f_g_h_i_j_k_6PLUS_ReturnTrue)
 END_TEST
 
 
-START_TEST(WhenGiven_l_m_o_p_q_r_s_6SUB_ReturnTrue)
+START_TEST(WhenGiven_l_m_o_p_q_r_s_7SUB_ReturnTrue)
 {
   bool return_value = is_valid_rpn("lmnopqrs-------");
   ck_assert(return_value == true);
@@ -89,7 +89,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_MINUS_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_e_f_g_h_i_j_k_6PLUS_ReturnTrue);
-    tcase_add_test(tc1_1, WhenGiven_l_m_o_p_q_r_s_6SUB_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_l_m_o_p_q_r_s_7SUB_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
