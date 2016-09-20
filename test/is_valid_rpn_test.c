@@ -99,6 +99,13 @@ START_TEST(WhenGiven_t_u_v_w_x_y_z_6POW_ReturnTrue)
 }
 END_TEST
 
+START_TEST(WhenGivenNullReturnsFalse)
+{
+  bool return_value = is_valid_rpn(0);
+  ck_assert(return_value == false);
+}
+END_TEST
+
 int main(void)
 {
   Suite *s1 = suite_create("Core");
@@ -121,6 +128,7 @@ int main(void)
   tcase_add_test(tc1_1, WhenGiven_t_u_v_w_x_y_z_6MULT_ReturnTrue);
   tcase_add_test(tc1_1, WhenGiven_t_u_v_w_x_y_z_6DIV_ReturnTrue);
   tcase_add_test(tc1_1, WhenGiven_t_u_v_w_x_y_z_6POW_ReturnTrue);
+  tcase_add_test(tc1_1, WhenGivenNullReturnsFalse);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);

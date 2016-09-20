@@ -45,7 +45,7 @@ static bool has_one_less_operator_than_operand(const char *rpn_string) {
 }
 
 bool is_valid_rpn(const char *rpn_string) {
-  if(rpn_string == "") {
+  if(rpn_string == 0 || rpn_string == "") {
     return false;
   }
   return has_one_less_operator_than_operand(rpn_string);
