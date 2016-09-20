@@ -4,7 +4,7 @@
 
 static bool is_operation(const char character) {
   int i;
-  const char operations[] = "+-*";
+  const char operations[] = "+-*/";
 
   for(i=0; i < strlen(operations); ++i) {
     if( operations[i] == character ) {
