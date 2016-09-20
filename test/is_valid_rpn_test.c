@@ -50,6 +50,13 @@ START_TEST(WhenGiven_a_b_c_d_PLUS_PLUS_ReturnFalse)
 }
 END_TEST
 
+START_TEST(WhenGiven_a_b_c_d_PLUS_PLUS_MINUS_ReturnFalse)
+{
+  bool return_value = is_valid_rpn("abcd++-");
+  ck_assert(return_value == false);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -65,6 +72,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_a_b_c_PLUS_PLUS_ReturnTrue);
     tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_ReturnFalse);
+    tcase_add_test(tc1_1, WhenGiven_a_b_c_d_PLUS_PLUS_MINUS_ReturnFalse);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
