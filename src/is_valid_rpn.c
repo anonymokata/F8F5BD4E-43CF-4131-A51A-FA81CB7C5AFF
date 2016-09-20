@@ -43,7 +43,7 @@ static bool has_valid_operand_operator_sequence(const char *rpn_string) {
 }
 
 bool is_valid_rpn(const char *rpn_string) {
-  if(rpn_string == 0 || rpn_string == "") {
+  if( !is_nonnull_string(rpn_string) || rpn_string == "") {
     return false;
   }
   else if (is_operator(rpn_string[0])) {

@@ -3,13 +3,6 @@
 
 #include <string.h>
 
-static bool is_valid_string(const char *infix_string) {
-  if(infix_string == 0) {
-    return false;
-  }
-  return true;
-}
-
 static bool has_valid_characters(const char *infix_string) {
   int i;
   const char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+-*/()";
@@ -147,7 +140,7 @@ static bool is_valid_operand_operator_operand_sequence(const char *infix_string)
 }
 
 bool is_valid_infix(const char *infix_string) {
-  if( !is_valid_string(infix_string) || !has_valid_characters(infix_string) ||
+  if( !is_nonnull_string(infix_string) || !has_valid_characters(infix_string) ||
       !has_valid_brackets(infix_string) ||
       !is_valid_operand_operator_operand_sequence(infix_string) ||
       !has_no_operator_first(infix_string)  ) {

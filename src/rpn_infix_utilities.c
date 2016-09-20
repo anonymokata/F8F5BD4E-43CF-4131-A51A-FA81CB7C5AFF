@@ -24,3 +24,10 @@ bool is_operator(const char character) {
   }
   return false;
 }
+
+bool is_nonnull_string(const char *infix_string) {
+  if(infix_string == 0) {
+    return false;
+  }
+  return true;
+}

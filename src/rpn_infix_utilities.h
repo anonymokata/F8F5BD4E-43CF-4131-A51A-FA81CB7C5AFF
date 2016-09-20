@@ -5,5 +5,6 @@
 
 bool is_operand(const char character);
 bool is_operator(const char character);
+bool is_nonnull_string(const char *infix_string);
 
 #endif /* IS_RPN_INFIX_UTILITIES_H */
