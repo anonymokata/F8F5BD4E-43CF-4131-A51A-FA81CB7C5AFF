@@ -85,9 +85,49 @@ static bool has_valid_brackets(const char *infix_string) {
   return false;
 }
 
+
+static bool is_operand(const char character) {
+  int i;
+  const char operands[] = "abcdefghijklmnopqrstuvwxyz";
+
+  for(i=0; i < strlen(operands); ++i) {
+    if( operands[i] == character ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool is_operation(const char character) {
+  int i;
+  const char operations[] = "^+*/";
+
+  for(i=0; i < strlen(operations); ++i) {
+    if( operations[i] == character ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+static bool is_valid_operand_operation_operand_sequence(const char *infix_string) {
+  int i;
+  const int infix_length = strlen(infix_string);
+
+  for(i=0; i < infix_length; ++i) {
+    if( is_operand(infix_string[i]) && ((i+1) != infix_length) &&
+        is_operand(infix_string[i+1])) {
+          return false;
+    }
+  }
+  return true;
+}
+
 bool is_valid_infix(const char *infix_string) {
   if( !is_valid_string(infix_string) || !has_valid_characters(infix_string) ||
-      !has_valid_brackets(infix_string) ) {
+      !has_valid_brackets(infix_string) ||
+      !is_valid_operand_operation_operand_sequence(infix_string)
+    ) {
     return false;
   }
   return true;
