@@ -48,5 +48,8 @@ bool is_valid_rpn(const char *rpn_string) {
   if(rpn_string == 0 || rpn_string == "") {
     return false;
   }
+  else if (is_operation(rpn_string[0])) {
+    return false;
+  }
   return has_one_less_operator_than_operand(rpn_string);
 }
