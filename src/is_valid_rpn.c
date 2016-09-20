@@ -6,9 +6,6 @@ bool is_valid_rpn(const char *rpn_string) {
   if(!strcmp("ba+", rpn_string)) {
     return true;
   }
-  else if(!strcmp("ba", rpn_string)) {
-    return false;
-  }
   else if(rpn_string[0] == 'a') {
     return true;
   }
