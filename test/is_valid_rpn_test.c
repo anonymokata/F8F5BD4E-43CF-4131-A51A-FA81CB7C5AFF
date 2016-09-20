@@ -39,7 +39,7 @@ END_TEST
 START_TEST(WhenGiven_a_b_c_PLUS_PLUS_ReturnTrue)
 {
   bool return_value = is_valid_rpn("abc++");
-  ck_assert(return_value == false);
+  ck_assert(return_value == true);
 }
 END_TEST
 
