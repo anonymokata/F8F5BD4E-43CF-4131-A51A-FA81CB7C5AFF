@@ -16,7 +16,7 @@ static bool has_valid_characters(const char *infix_string) {
   int i;
 
   if(!strcmp(infix_string, "")) {
-    return true;
+    return false;
   }
 
   for(i=0; i < strlen(infix_string); ++i) {

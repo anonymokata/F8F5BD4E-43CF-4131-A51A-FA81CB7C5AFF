@@ -1,10 +1,10 @@
 #include <check.h>
 #include "../src/is_valid_infix.h"
 
-START_TEST(WhenGivenEmptyStringReturnsTrue)
+START_TEST(WhenGivenEmptyStringReturnsFalse)
 {
   bool return_value = is_valid_infix("");
-  ck_assert(return_value == true);
+  ck_assert(return_value == false);
 }
 END_TEST
 
@@ -142,7 +142,7 @@ int main(void)
     int nf;
 
     suite_add_tcase(s1, tc1_1);
-    tcase_add_test(tc1_1, WhenGivenEmptyStringReturnsTrue);
+    tcase_add_test(tc1_1, WhenGivenEmptyStringReturnsFalse);
     tcase_add_test(tc1_1, WhenGivenNullReturnsFalse);
     tcase_add_test(tc1_1, WhenGiven_1_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_2_ReturnFalse);
