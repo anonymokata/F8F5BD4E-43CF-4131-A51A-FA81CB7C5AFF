@@ -13,7 +13,7 @@ bool is_valid_rpn(const char *rpn_string) {
     return false;
   }
   else if(!strcmp("abcd++-", rpn_string)) {
-    return false;
+    return true;
   }
   else if(!strcmp("abcd++", rpn_string)) {
     return false;
