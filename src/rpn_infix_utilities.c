@@ -25,9 +25,10 @@ bool is_operator(const char character) {
   return false;
 }
 
-bool is_nonnull_string(const char *infix_string) {
-  if(infix_string == 0) {
-    return false;
-  }
-  return true;
+bool is_null_string(const char *input_string) {
+  return input_string == 0;
+}
+
+bool is_empty_string(const char *input_string) {
+  return strlen(input_string) == 0;
 }
