@@ -8,6 +8,21 @@ START_TEST(WhenGivenEmptyStringReturnsFalse)
 }
 END_TEST
 
+START_TEST(WhenGiven_a_ReturnTrue)
+{
+  bool return_value = is_valid_rpn("a");
+  ck_assert(return_value == true);
+}
+END_TEST
+
+START_TEST(WhenGiven_a_b_PLUS_ReturnTrue)
+{
+  bool return_value = is_valid_rpn("ba+");
+  ck_assert(return_value == true);
+}
+END_TEST
+
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -17,6 +32,8 @@ int main(void)
 
     suite_add_tcase(s1, tc1_1);
     tcase_add_test(tc1_1, WhenGivenEmptyStringReturnsFalse);
+    tcase_add_test(tc1_1, WhenGiven_a_ReturnTrue);
+    tcase_add_test(tc1_1, WhenGiven_a_b_PLUS_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
