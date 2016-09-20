@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-static const char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+*/()";
+static const char valid_characters[] = "abcdefghijklmnopqrstuvwxyz^+-*/()";
 
 static bool is_valid_string(const char *infix_string) {
   if(infix_string == 0) {
@@ -103,7 +103,7 @@ static bool is_operand(const char character) {
 
 static bool is_operation(const char character) {
   int i;
-  const char operations[] = "^+*/";
+  const char operations[] = "^+-*/";
 
   for(i=0; i < strlen(operations); ++i) {
     if( operations[i] == character ) {
@@ -120,7 +120,7 @@ static bool has_no_closed_bracket_operand(const char *infix_string) {
   for(i=0; i < infix_length; ++i) {
     if( (infix_string[i] == ')') && ((i+1) != infix_length) &&
         (is_operand(infix_string[i+1])) ) {
-          return false;
+      return false;
     }
   }
   return true;

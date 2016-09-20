@@ -134,6 +134,13 @@ START_TEST(WhenGiven_Operator_First_ReturnFalse)
 }
 END_TEST
 
+START_TEST(WhenGiven_c_SUB_c_ReturnTrue)
+{
+  bool return_value = is_valid_infix("c-c");
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void)
 {
     Suite *s1 = suite_create("Core");
@@ -161,6 +168,7 @@ int main(void)
     tcase_add_test(tc1_1, WhenGiven_OPEN_a_PLUS_b_CLOSED_c_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_a_OPEN_b_PLUS_c_CLOSED_ReturnFalse);
     tcase_add_test(tc1_1, WhenGiven_Operator_First_ReturnFalse);
+    tcase_add_test(tc1_1, WhenGiven_c_SUB_c_ReturnTrue);
 
     srunner_run_all(sr, CK_ENV);
     nf = srunner_ntests_failed(sr);
