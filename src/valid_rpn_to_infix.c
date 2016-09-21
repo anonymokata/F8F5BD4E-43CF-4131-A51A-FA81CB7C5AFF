@@ -11,7 +11,6 @@ static bool append_infix(const char proposed_infix_ammend, char *infix, const in
     strcat(infix, proposed_infix_ammend_string);
     return true;
   }
-
   strcpy(infix, "");
   return false;
 }

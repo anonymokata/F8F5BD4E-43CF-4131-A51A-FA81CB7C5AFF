@@ -26,7 +26,6 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_False) {
 }
 END_TEST
 
-
 START_TEST(When_Given_a_b_PLUS_Returns_OBR_a_PLUS_b_CBR_And_True) {
   char infix[INFIX_BUFFER_SIZE];
   const char rpn[] = "ab+";
