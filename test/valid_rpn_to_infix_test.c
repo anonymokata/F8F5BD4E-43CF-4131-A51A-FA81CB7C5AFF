@@ -48,7 +48,7 @@ START_TEST(When_Given_c_d_e_PLUS_PLUSReturns_c_PLUS_OBR_d_PLUS_e_CBR_And_True) {
 }
 END_TEST
 
-START_TEST(When_Given_c_d_SUB_e_MULT_PLUSReturns_OBR_f_SUB_g_CBR_MULT_h_And_True) {
+START_TEST(When_Given_f_g_SUB_h_MULT_PLUSReturns_OBR_f_SUB_g_CBR_MULT_h_And_True) {
   char infix[INFIX_BUFFER_SIZE];
   const char rpn[] = "fg-h*";
 
@@ -69,7 +69,7 @@ int main(void) {
   tcase_add_test(tc1_1, When_Given_a_Returns_a_And_True);
   tcase_add_test(tc1_1, When_Buffer_Size_Is_Too_Small_Returns_Empty_And_False);
   tcase_add_test(tc1_1, When_Given_c_d_e_PLUS_PLUSReturns_c_PLUS_OBR_d_PLUS_e_CBR_And_True);
-  tcase_add_test(tc1_1, When_Given_c_d_SUB_e_MULT_PLUSReturns_OBR_f_SUB_g_CBR_MULT_h_And_True);
+  tcase_add_test(tc1_1, When_Given_f_g_SUB_h_MULT_PLUSReturns_OBR_f_SUB_g_CBR_MULT_h_And_True);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
