@@ -51,5 +51,20 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
       return true;
     }
   }
+  else if(!strcmp(rpn, "ijhk^/-")) {
+    if( append_infix('i', infix, infix_buffersize) &&
+        append_infix('-', infix, infix_buffersize) &&
+        append_infix('(', infix, infix_buffersize) &&
+        append_infix('j', infix, infix_buffersize) &&
+        append_infix('/', infix, infix_buffersize) &&
+        append_infix('(', infix, infix_buffersize) &&
+        append_infix('h', infix, infix_buffersize) &&
+        append_infix('^', infix, infix_buffersize) &&
+        append_infix('k', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) ) {
+      return true;
+    }
+  }
   return false;
 }
