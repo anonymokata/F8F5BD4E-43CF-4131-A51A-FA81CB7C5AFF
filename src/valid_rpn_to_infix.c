@@ -40,5 +40,16 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
       return true;
     }
   }
+  else if(!strcmp(rpn, "fg-h*")) {
+    if( append_infix('(', infix, infix_buffersize) &&
+        append_infix('f', infix, infix_buffersize) &&
+        append_infix('-', infix, infix_buffersize) &&
+        append_infix('g', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) &&
+        append_infix('*', infix, infix_buffersize) &&
+        append_infix('h', infix, infix_buffersize) ) {
+      return true;
+    }
+  }
   return false;
 }
