@@ -20,12 +20,27 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
   if(!strcmp(rpn, "a")) {
     return append_infix('a', infix, infix_buffersize);
   }
-  else if( append_infix('(', infix, infix_buffersize) &&
-      append_infix('a', infix, infix_buffersize) &&
-      append_infix('+', infix, infix_buffersize) &&
-      append_infix('b', infix, infix_buffersize) &&
-      append_infix(')', infix, infix_buffersize) ) {
-    return true;
+  else if(!strcmp(rpn, "ab+")) {
+    if( append_infix('(', infix, infix_buffersize) &&
+        append_infix('a', infix, infix_buffersize) &&
+        append_infix('+', infix, infix_buffersize) &&
+        append_infix('b', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) ) {
+      return true;
+    }
+  }
+  else if(!strcmp(rpn, "cde++")) {
+    if( append_infix('(', infix, infix_buffersize) &&
+        append_infix('c', infix, infix_buffersize) &&
+        append_infix('+', infix, infix_buffersize) &&
+        append_infix('(', infix, infix_buffersize) &&
+        append_infix('d', infix, infix_buffersize) &&
+        append_infix('+', infix, infix_buffersize) &&
+        append_infix('e', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) &&
+        append_infix(')', infix, infix_buffersize) ) {
+      return true;
+    }
   }
   return false;
 }
