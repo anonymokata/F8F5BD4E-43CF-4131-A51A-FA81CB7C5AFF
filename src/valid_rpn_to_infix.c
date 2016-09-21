@@ -30,14 +30,12 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
     }
   }
   else if(!strcmp(rpn, "cde++")) {
-    if( append_infix('(', infix, infix_buffersize) &&
-        append_infix('c', infix, infix_buffersize) &&
+    if( append_infix('c', infix, infix_buffersize) &&
         append_infix('+', infix, infix_buffersize) &&
         append_infix('(', infix, infix_buffersize) &&
         append_infix('d', infix, infix_buffersize) &&
         append_infix('+', infix, infix_buffersize) &&
         append_infix('e', infix, infix_buffersize) &&
-        append_infix(')', infix, infix_buffersize) &&
         append_infix(')', infix, infix_buffersize) ) {
       return true;
     }
