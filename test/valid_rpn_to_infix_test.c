@@ -78,8 +78,8 @@ int main(void) {
 
   suite_add_tcase(s1, tc1_1);
   tcase_add_test(tc1_1, When_Given_a_Returns_a_And_True);
-  tcase_add_test(tc1_1, When_Given_a_b_PLUS_Returns_a_PLUS_b_And_True);
   tcase_add_test(tc1_1, When_Buffer_Size_Is_Too_Small_Returns_Empty_And_False);
+  tcase_add_test(tc1_1, When_Given_a_b_PLUS_Returns_a_PLUS_b_And_True);
   tcase_add_test(tc1_1, When_Given_c_d_e_PLUS_PLUSReturns_c_PLUS_OBR_d_PLUS_e_CBR_And_True);
   tcase_add_test(tc1_1, When_Given_f_g_SUB_h_MULT_Returns_OBR_f_SUB_g_CBR_MULT_h_And_True);
   tcase_add_test(tc1_1, When_Given_i_j_h_k_POW_DIV_SUB_Returns_i_SUB_OBR_j_DIV_OBR_h_POW_k_2CBR_And_True);
