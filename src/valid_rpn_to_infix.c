@@ -21,11 +21,9 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
     return append_infix('a', infix, infix_buffersize);
   }
   else if(!strcmp(rpn, "ab+")) {
-    if( append_infix('(', infix, infix_buffersize) &&
-        append_infix('a', infix, infix_buffersize) &&
+    if( append_infix('a', infix, infix_buffersize) &&
         append_infix('+', infix, infix_buffersize) &&
-        append_infix('b', infix, infix_buffersize) &&
-        append_infix(')', infix, infix_buffersize) ) {
+        append_infix('b', infix, infix_buffersize) ) {
       return true;
     }
   }
