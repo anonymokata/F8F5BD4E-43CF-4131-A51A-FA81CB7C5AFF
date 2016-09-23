@@ -105,7 +105,7 @@ END_TEST
 
 int main(void) {
   Suite *s1 = suite_create("Core");
-  TCase *tc1_1 = tcase_create("rpn_to_infix_tests");
+  TCase *tc1_1 = tcase_create("valid_rpn_to_infix_tests");
   SRunner *sr = srunner_create(s1);
   int nf;
 
