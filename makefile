@@ -14,7 +14,11 @@ build_valid_rpn_to_infix: ./src/valid_rpn_to_infix.c ./test/valid_rpn_to_infix_t
 	$(CC) $(COMPILER_FLAGS) ./src/valid_rpn_to_infix.c ./test/valid_rpn_to_infix_test.c ./src/rpn_infix_utilities.c $(LDFLAGS) ./valid_rpn_to_infix.exe
 	./valid_rpn_to_infix.exe
 
-test: clean build_is_valid_infix build_is_valid_rpn build_valid_rpn_to_infix
+build_valid_infix_to_rpn: ./src/valid_infix_to_rpn.c ./test/valid_infix_to_rpn_test.c ./src/rpn_infix_utilities.c
+	$(CC) $(COMPILER_FLAGS) ./src/valid_infix_to_rpn.c ./test/valid_infix_to_rpn_test.c ./src/rpn_infix_utilities.c $(LDFLAGS) ./valid_infix_to_rpn.exe
+	./valid_infix_to_rpn.exe
+
+test: clean build_is_valid_infix build_is_valid_rpn build_valid_rpn_to_infix build_valid_infix_to_rpn
 
 clean:
 	rm -rf ./src/*.o
