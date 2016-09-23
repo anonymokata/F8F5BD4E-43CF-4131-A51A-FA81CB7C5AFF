@@ -3,21 +3,6 @@
 #include <string.h>
 
 #define OFFSET_FOR_OPERATOR_AND_BRACKETS 3
-#define END_OF_STRING_CHARACTER '\0'
-
-static bool append_infix(const char proposed_infix_ammend, char *infix, const int infix_buffersize) {
-
-  char proposed_infix_ammend_string[2];
-  proposed_infix_ammend_string[0] = proposed_infix_ammend;
-  proposed_infix_ammend_string[1] = END_OF_STRING_CHARACTER;
-
-  if( ( strlen(infix)+strlen(proposed_infix_ammend_string) ) < infix_buffersize ) {
-    strcat(infix, proposed_infix_ammend_string);
-    return false;
-  }
-  strcpy(infix, "");
-  return true;
-}
 
 static bool is_open_bracket(const char character) {
   return character == '(';
@@ -62,7 +47,7 @@ static bool make_space_for_operator_and_brackets(char *infix, const int infix_bu
   bool was_buffer_exceeded = true;
 
   for(i = 0; i < OFFSET_FOR_OPERATOR_AND_BRACKETS; ++i) {
-    was_buffer_exceeded = append_infix(' ', infix, infix_buffersize);
+    was_buffer_exceeded = append_string(' ', infix, infix_buffersize);
   }
   return was_buffer_exceeded;
 }
@@ -70,7 +55,7 @@ static bool make_space_for_operator_and_brackets(char *infix, const int infix_bu
 static bool make_space_for_operator(char *infix, const int infix_buffersize) {
   int i;
   bool was_buffer_exceeded = true;
-  was_buffer_exceeded = append_infix(' ', infix, infix_buffersize);
+  was_buffer_exceeded = append_string(' ', infix, infix_buffersize);
   return was_buffer_exceeded;
 }
 
@@ -142,7 +127,7 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
 
   for(i = 0; i < rpn_length; ++i) {
     if( is_operand(rpn[i]) ) {
-      was_buffer_exceeded = append_infix(rpn[i], infix, infix_buffersize);
+      was_buffer_exceeded = append_string(rpn[i], infix, infix_buffersize);
     }
     else if( is_operator(rpn[i]) ) {
       second_operand_start = find_second_operand_start(infix);
