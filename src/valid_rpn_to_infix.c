@@ -1,3 +1,4 @@
+#include "rpn_infix_utilities.h"
 #include "valid_rpn_to_infix.h"
 #include <string.h>
 
