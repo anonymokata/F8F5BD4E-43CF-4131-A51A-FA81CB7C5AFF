@@ -1,14 +1,14 @@
 #include "valid_rpn_to_infix.h"
 #include <string.h>
-#include <stdio.h>
 
 #define OFFSET_FOR_OPERATOR_AND_BRACKETS 3
+#define END_OF_STRING_CHARACTER '\0'
 
 static bool append_infix(const char proposed_infix_ammend, char *infix, const int infix_buffersize) {
 
   char proposed_infix_ammend_string[2];
   proposed_infix_ammend_string[0] = proposed_infix_ammend;
-  proposed_infix_ammend_string[1] = '\0';
+  proposed_infix_ammend_string[1] = END_OF_STRING_CHARACTER;
 
   if( ( strlen(infix)+strlen(proposed_infix_ammend_string) ) < infix_buffersize ) {
     strcat(infix, proposed_infix_ammend_string);
@@ -92,7 +92,6 @@ static bool insert_operator_and_brackets(const int first_operand_start,
 
   for(; i >= second_operand_start; --i) {
     infix[--i_new] = infix[i];
-    printf("\t\t\t[%s], (%d, %d), (%d, %d)\n", infix, i_new, i, first_operand_start, second_operand_end);
   }
 
   infix[--i_new] = operation;
@@ -130,6 +129,10 @@ static bool insert_operator(const int first_operand_start,
   return was_buffer_exceeded;
 }
 
+static bool is_last_operator(const int rpn_index, const int rpn_length) {
+  return rpn_index+1 == rpn_length;
+}
+
 bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize) {
   int i;
   int second_operand_start;
@@ -145,7 +148,7 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
       second_operand_start = find_second_operand_start(infix);
       first_operand_start = find_first_operand_start(infix, second_operand_start-1);
 
-      if( i+1 == rpn_length ) {
+      if( is_last_operator(i, rpn_length) ) {
         was_buffer_exceeded = insert_operator(first_operand_start, second_operand_start,
               rpn[i], infix, infix_buffersize);
       }
