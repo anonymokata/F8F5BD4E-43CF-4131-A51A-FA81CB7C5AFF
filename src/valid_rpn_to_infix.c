@@ -124,7 +124,6 @@ static bool insert_operator(const int first_operand_start,
   }
 
   infix[i+1] = operation;
-  --i;
 
   return was_buffer_exceeded;
 }
