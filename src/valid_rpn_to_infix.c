@@ -1,5 +1,8 @@
 #include "valid_rpn_to_infix.h"
 #include <string.h>
+#include <stdio.h>
+
+#define OFFSET_FOR_OPERATOR_AND_BRACKETS 3
 
 static bool append_infix(const char proposed_infix_ammend, char *infix, const int infix_buffersize) {
 
@@ -15,54 +18,142 @@ static bool append_infix(const char proposed_infix_ammend, char *infix, const in
   return true;
 }
 
-bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize) {
+static bool is_open_bracket(const char character) {
+  return character == '(';
+}
 
-  if(!strcmp(rpn, "a")) {
-    return append_infix('a', infix, infix_buffersize);
+static bool is_closed_bracket(const char character) {
+  return character == ')';
+}
+
+static int find_operand_start(const char *infix, const int operand_end) {
+  int i;
+  int number_of_open_bracket = 0;
+  int number_of_closed_brackets = 0;
+
+  if( is_operand(infix[operand_end]) ) {
+    return operand_end;
   }
-  else if(!strcmp(rpn, "ab+")) {
-    if( !append_infix('a', infix, infix_buffersize) &&
-        !append_infix('+', infix, infix_buffersize) &&
-        !append_infix('b', infix, infix_buffersize) ) {
-      return false;
+
+  for(i = operand_end; i >= 0; --i) {
+    if( is_closed_bracket(infix[i]) ) {
+      ++number_of_closed_brackets;
+    }
+    else if( is_open_bracket(infix[i]) ) {
+      ++number_of_open_bracket;
+    }
+    if(number_of_closed_brackets == number_of_open_bracket) {
+      return i;
     }
   }
-  else if(!strcmp(rpn, "cde++")) {
-    if( !append_infix('c', infix, infix_buffersize) &&
-        !append_infix('+', infix, infix_buffersize) &&
-        !append_infix('(', infix, infix_buffersize) &&
-        !append_infix('d', infix, infix_buffersize) &&
-        !append_infix('+', infix, infix_buffersize) &&
-        !append_infix('e', infix, infix_buffersize) &&
-        !append_infix(')', infix, infix_buffersize) ) {
-      return false;
+}
+
+static int find_second_operand_start(const char *infix) {
+  return find_operand_start(infix, strlen(infix)-1);
+}
+
+static int find_first_operand_start(const char *infix, const int operand_end) {
+  return find_operand_start(infix, operand_end);
+}
+
+static bool make_space_for_operator_and_brackets(char *infix, const int infix_buffersize) {
+  int i;
+  bool was_buffer_exceeded = true;
+
+  for(i = 0; i < OFFSET_FOR_OPERATOR_AND_BRACKETS; ++i) {
+    was_buffer_exceeded = append_infix(' ', infix, infix_buffersize);
+  }
+  return was_buffer_exceeded;
+}
+
+static bool make_space_for_operator(char *infix, const int infix_buffersize) {
+  int i;
+  bool was_buffer_exceeded = true;
+  was_buffer_exceeded = append_infix(' ', infix, infix_buffersize);
+  return was_buffer_exceeded;
+}
+
+static bool insert_operator_and_brackets(const int first_operand_start,
+                      const int second_operand_start,
+                      const char operation,
+                      char *infix, const int infix_buffersize) {
+  bool was_buffer_exceeded = true;
+  const int infix_length = strlen(infix);
+  const int second_operand_end = infix_length - 1;
+  int i = second_operand_end;
+  int i_new = i + OFFSET_FOR_OPERATOR_AND_BRACKETS;
+
+  was_buffer_exceeded = make_space_for_operator_and_brackets(infix, infix_buffersize);
+
+  if(was_buffer_exceeded)
+    return was_buffer_exceeded;
+
+  infix[i_new] = ')';
+
+  for(; i >= second_operand_start; --i) {
+    infix[--i_new] = infix[i];
+    printf("\t\t\t[%s], (%d, %d), (%d, %d)\n", infix, i_new, i, first_operand_start, second_operand_end);
+  }
+
+  infix[--i_new] = operation;
+
+  for(; i >= first_operand_start; --i) {
+    infix[--i_new] = infix[i];
+  }
+
+  infix[--i_new] = '(';
+
+  return was_buffer_exceeded;
+}
+
+static bool insert_operator(const int first_operand_start,
+                      const int second_operand_start,
+                      const char operation,
+                      char *infix, const int infix_buffersize) {
+  int i;
+  bool was_buffer_exceeded = true;
+  const infix_length = strlen(infix);
+  const second_operand_end = infix_length - 1;
+
+  was_buffer_exceeded = make_space_for_operator(infix, infix_buffersize);
+
+  if(was_buffer_exceeded)
+    return was_buffer_exceeded;
+
+  for(i = second_operand_end; i >= second_operand_start; --i) {
+    infix[i+1] = infix[i];
+  }
+
+  infix[i+1] = operation;
+  --i;
+
+  return was_buffer_exceeded;
+}
+
+bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize) {
+  int i;
+  int second_operand_start;
+  int first_operand_start;
+  const int rpn_length = strlen(rpn);
+  bool was_buffer_exceeded = true;
+
+  for(i = 0; i < rpn_length; ++i) {
+    if( is_operand(rpn[i]) ) {
+      was_buffer_exceeded = append_infix(rpn[i], infix, infix_buffersize);
+    }
+    else if( is_operator(rpn[i]) ) {
+      second_operand_start = find_second_operand_start(infix);
+      first_operand_start = find_first_operand_start(infix, second_operand_start-1);
+
+      if( i+1 == rpn_length ) {
+        was_buffer_exceeded = insert_operator(first_operand_start, second_operand_start,
+              rpn[i], infix, infix_buffersize);
+      }
+      else {
+        was_buffer_exceeded = insert_operator_and_brackets(first_operand_start, second_operand_start,
+              rpn[i], infix, infix_buffersize);
+      }
     }
   }
-  else if(!strcmp(rpn, "fg-h*")) {
-    if( !append_infix('(', infix, infix_buffersize) &&
-        !append_infix('f', infix, infix_buffersize) &&
-        !append_infix('-', infix, infix_buffersize) &&
-        !append_infix('g', infix, infix_buffersize) &&
-        !append_infix(')', infix, infix_buffersize) &&
-        !append_infix('*', infix, infix_buffersize) &&
-        !append_infix('h', infix, infix_buffersize) ) {
-      return false;
-    }
-  }
-  else if(!strcmp(rpn, "ijhk^/-")) {
-    if( !append_infix('i', infix, infix_buffersize) &&
-        !append_infix('-', infix, infix_buffersize) &&
-        !append_infix('(', infix, infix_buffersize) &&
-        !append_infix('j', infix, infix_buffersize) &&
-        !append_infix('/', infix, infix_buffersize) &&
-        !append_infix('(', infix, infix_buffersize) &&
-        !append_infix('h', infix, infix_buffersize) &&
-        !append_infix('^', infix, infix_buffersize) &&
-        !append_infix('k', infix, infix_buffersize) &&
-        !append_infix(')', infix, infix_buffersize) &&
-        !append_infix(')', infix, infix_buffersize) ) {
-      return false;
-    }
-  }
-  return true;
+  return was_buffer_exceeded;
 }
