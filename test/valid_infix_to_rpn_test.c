@@ -81,6 +81,17 @@ START_TEST(When_Given_g_Returns_g_And_Success) {
 }
 END_TEST
 
+START_TEST(When_Given_h_SUB_i_SUB_j_Returns_h_i_j_2SUB_And_Success) {
+  char rpn[RPN_BUFFER_SIZE];
+  const char infix[] = "h-i-j";
+
+  bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
+
+  ck_assert(return_value == false);
+  ck_assert_str_eq(rpn, "hij--");
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("valid_infix_to_rpn_tests");
@@ -95,6 +106,7 @@ int main(void) {
   tcase_add_test(tc1_1, When_Given_OBR_c_SUB_d_CBE_Returns_c_d_SUB_And_Success);
   tcase_add_test(tc1_1, When_Given_OBR_e_MULT_f_CBE_Returns_e_f_MULT_And_Success);
   tcase_add_test(tc1_1, When_Given_g_Returns_g_And_Success);
+  tcase_add_test(tc1_1, When_Given_h_SUB_i_SUB_j_Returns_h_i_j_2SUB_And_Success);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
