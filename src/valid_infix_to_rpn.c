@@ -3,6 +3,8 @@
 
 #include <string.h>
 
+#define INDEX_SKIP_BRACKETTED_OPERAND 4
+
 static bool expand_bracketed_operand(const int open_bracket_index, const char *infix,
   char *rpn, const int rpn_buffersize) {
 
@@ -20,7 +22,6 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
   bool was_buffer_exceeded = true;
   int i;
   const int infix_length = strlen(infix);
-  const int index_skip_bracketted_operand = 4;
 
   for( i=0; i < infix_length; ++i ) {
     if( is_operand(infix[i]) ) {
@@ -28,13 +29,13 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
     }
     else if( is_open_bracket(infix[i]) ) {
       was_buffer_exceeded = expand_bracketed_operand(i, infix, rpn, rpn_buffersize);
-      i += 4;
+      i += INDEX_SKIP_BRACKETTED_OPERAND;
     }
   }
 
   for( i=0; i < infix_length; ++i ) {
     if( is_open_bracket(infix[i]) ) {
-      i += index_skip_bracketted_operand;
+      i += INDEX_SKIP_BRACKETTED_OPERAND;
     }
     else if( is_operator(infix[i]) ) {
       was_buffer_exceeded = append_string(infix[i], rpn, rpn_buffersize);
