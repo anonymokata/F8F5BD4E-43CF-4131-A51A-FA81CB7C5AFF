@@ -15,4 +15,10 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
     was_buffer_exceeded = append_string('+', rpn, rpn_buffersize);
     return was_buffer_exceeded;
   }
+  else if(!strcmp(infix, "(c-d)")) {
+    was_buffer_exceeded = append_string('c', rpn, rpn_buffersize);
+    was_buffer_exceeded = append_string('d', rpn, rpn_buffersize);
+    was_buffer_exceeded = append_string('-', rpn, rpn_buffersize);
+    return was_buffer_exceeded;
+  }
 }
