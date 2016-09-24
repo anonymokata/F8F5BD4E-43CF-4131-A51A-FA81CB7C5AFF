@@ -5,26 +5,25 @@
 
 bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) {
   int was_buffer_exceeded = true;
+  int i;
+  int infix_length = strlen(infix);
+  char operator = ' ';
 
   if(!strcmp(infix, "a")) {
     return append_string(infix[0], rpn, rpn_buffersize);
   }
-  else if(!strcmp(infix, "a+b") || !strcmp(infix, "(a+b)")) {
-    was_buffer_exceeded = append_string('a', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('b', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('+', rpn, rpn_buffersize);
-    return was_buffer_exceeded;
-  }
-  else if(!strcmp(infix, "(c-d)")) {
-    was_buffer_exceeded = append_string('c', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('d', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('-', rpn, rpn_buffersize);
-    return was_buffer_exceeded;
-  }
-  else if(!strcmp(infix, "e*f")) {
-    was_buffer_exceeded = append_string('e', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('f', rpn, rpn_buffersize);
-    was_buffer_exceeded = append_string('*', rpn, rpn_buffersize);
-    return was_buffer_exceeded;
+  else {
+    for( i=0; i < infix_length; ++i ) {
+      if( is_open_bracket(infix[i]) & is_closed_bracket(infix[i]) ) {
+        continue;
+      }
+      else if( is_operand(infix[i]) ) {
+        was_buffer_exceeded = append_string(infix[i], rpn, rpn_buffersize);
+      }
+      else if( is_operator(infix[i]) ) {
+        operator = infix[i];
+      }
+    }
+    return append_string(operator, rpn, rpn_buffersize);
   }
 }
