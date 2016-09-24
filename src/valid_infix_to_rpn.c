@@ -21,4 +21,10 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
     was_buffer_exceeded = append_string('-', rpn, rpn_buffersize);
     return was_buffer_exceeded;
   }
+  else if(!strcmp(infix, "e*f")) {
+    was_buffer_exceeded = append_string('e', rpn, rpn_buffersize);
+    was_buffer_exceeded = append_string('f', rpn, rpn_buffersize);
+    was_buffer_exceeded = append_string('*', rpn, rpn_buffersize);
+    return was_buffer_exceeded;
+  }
 }
