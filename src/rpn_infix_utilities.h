@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+bool is_open_bracket(const char character);
+bool is_closed_bracket(const char character);
 bool append_string(const char proposed_ammend, char *destination, const int destination_buffersize);
 bool is_operand(const char);
 bool is_operator(const char);

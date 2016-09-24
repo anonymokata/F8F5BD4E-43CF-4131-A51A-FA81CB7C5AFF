@@ -3,6 +3,14 @@
 
 #define END_OF_STRING_CHARACTER '\0'
 
+bool is_open_bracket(const char character) {
+  return character == '(';
+}
+
+bool is_closed_bracket(const char character) {
+  return character == ')';
+}
+
 bool append_string(const char proposed_ammend, char *destination, const int destination_buffersize) {
 
   char proposed_ammend_string[2];

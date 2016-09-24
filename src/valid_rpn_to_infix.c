@@ -4,14 +4,6 @@
 
 #define OFFSET_FOR_OPERATOR_AND_BRACKETS 3
 
-static bool is_open_bracket(const char character) {
-  return character == '(';
-}
-
-static bool is_closed_bracket(const char character) {
-  return character == ')';
-}
-
 static int find_operand_start(const char *infix, const int operand_end) {
   int i;
   int number_of_open_bracket = 0;
