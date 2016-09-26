@@ -3,44 +3,68 @@
 
 #include <string.h>
 
-#define INDEX_SKIP_BRACKETTED_OPERAND 4
+static int number_of_operands(const char *infix) {
+  int i;
+  const int infix_length = strlen(infix);
+  int count = 0;
 
-static bool expand_parened_operand(const int open_paren_index, const char *infix,
-  char *rpn, const int rpn_buffersize) {
+  for( i=0; i < infix_length; ++i ) {
+    if(is_operand(infix[i])) {
+      ++count;
+    }
+  }
+  return count;
+}
 
-  bool was_buffer_exceeded = true;
-  const int first_operand_index = open_paren_index + 1;
-  const int operator_index = open_paren_index + 2;
-  const int second_operand_index = open_paren_index + 3;
+static bool push_to_stack(const char token, char *stack, const int stack_buffersize) {
+  return append_string(token, stack, stack_buffersize);
+}
 
-  was_buffer_exceeded = append_string(infix[first_operand_index], rpn, rpn_buffersize);
-  was_buffer_exceeded = append_string(infix[second_operand_index], rpn, rpn_buffersize);
-  was_buffer_exceeded = append_string(infix[operator_index], rpn, rpn_buffersize);
+char pop_from_stack(char *stack) {
+  int stack_length = strlen(stack);
+  const char token = stack[stack_length-1];
+  stack[stack_length-1] = '\0';
+  return token;
 }
 
 bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) {
   bool was_buffer_exceeded = true;
   int i;
   const int infix_length = strlen(infix);
+  int operator_stack_length;
+  char tmp_token;
+  const int operator_stack_buffersize = infix_length - number_of_operands(infix) + 1;
+  char operator_stack[operator_stack_buffersize];
+  strcpy(operator_stack,"");
 
   for( i=0; i < infix_length; ++i ) {
     if( is_operand(infix[i]) ) {
-      was_buffer_exceeded = append_string(infix[i], rpn, rpn_buffersize);
+      was_buffer_exceeded = push_to_stack(infix[i], rpn, rpn_buffersize);
     }
-    else if( is_open_paren(infix[i]) ) {
-      was_buffer_exceeded = expand_parened_operand(i, infix, rpn, rpn_buffersize);
-      i += INDEX_SKIP_BRACKETTED_OPERAND;
-    }
-  }
-
-  for( i=0; i < infix_length; ++i ) {
-    if( is_open_paren(infix[i]) ) {
-      i += INDEX_SKIP_BRACKETTED_OPERAND;
+    else if( is_open_paren(infix[i]) || is_closed_paren(infix[i]) ) {
+      was_buffer_exceeded = push_to_stack(infix[i], operator_stack, operator_stack_buffersize);
     }
     else if( is_operator(infix[i]) ) {
-      was_buffer_exceeded = append_string(infix[i], rpn, rpn_buffersize);
+      operator_stack_length = strlen(operator_stack);
+
+      if(operator_stack_length > 1) {
+        was_buffer_exceeded = push_to_stack(pop_from_stack(operator_stack), operator_stack, operator_stack_buffersize);
+      }
+      was_buffer_exceeded = push_to_stack(infix[i], operator_stack, operator_stack_buffersize);
     }
   }
 
+  operator_stack_length = strlen(operator_stack);
+
+  while( operator_stack_length ) {
+    tmp_token = pop_from_stack(operator_stack);
+    if( is_open_paren(tmp_token) || is_closed_paren(tmp_token) ) {
+      continue;
+    }
+    else if( is_operator(tmp_token) ) {
+        was_buffer_exceeded = push_to_stack(tmp_token, rpn, rpn_buffersize);
+    }
+    operator_stack_length = strlen(operator_stack);
+  }
   return was_buffer_exceeded;
 }
