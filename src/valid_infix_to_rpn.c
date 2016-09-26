@@ -3,6 +3,18 @@
 
 #include <string.h>
 
+static int get_operator_order(const char operator) {
+  int order = 0;
+  switch(operator) {
+    case '-':
+      order = 2;
+      break;
+    default:
+      order = 0;
+  }
+  return order;
+}
+
 static int number_of_operands(const char *infix) {
   int i;
   const int infix_length = strlen(infix);
@@ -20,7 +32,7 @@ static bool push_to_stack(const char token, char *stack, const int stack_buffers
   return append_string(token, stack, stack_buffersize);
 }
 
-char pop_from_stack(char *stack) {
+static char pop_from_stack(char *stack) {
   int stack_length = strlen(stack);
   const char token = stack[stack_length-1];
   stack[stack_length-1] = '\0';
@@ -54,8 +66,10 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
     else if( is_operator(infix[i]) ) {
       operator_stack_length = strlen(operator_stack);
 
-      if(operator_stack_length > 1) {
-        was_buffer_exceeded = push_to_stack(pop_from_stack(operator_stack), operator_stack, operator_stack_buffersize);
+      if(operator_stack_length >= 1 && is_operator(operator_stack[operator_stack_length-1]) ){
+        if( get_operator_order(infix[i]) <= get_operator_order(operator_stack[operator_stack_length-1]) ) {
+          was_buffer_exceeded = push_to_stack(pop_from_stack(operator_stack), rpn, rpn_buffersize);
+        }
       }
       was_buffer_exceeded = push_to_stack(infix[i], operator_stack, operator_stack_buffersize);
     }

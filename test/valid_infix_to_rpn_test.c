@@ -96,7 +96,7 @@ START_TEST(When_Given_h_SUB_i_SUB_j_Returns_h_i_j_2SUB_And_Success) {
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
   ck_assert(return_value == false);
-  ck_assert_str_eq(rpn, "hij--");
+  ck_assert_str_eq(rpn, "hi-j-");
 }
 END_TEST
 
