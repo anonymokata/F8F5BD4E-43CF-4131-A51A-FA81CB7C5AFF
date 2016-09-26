@@ -41,8 +41,15 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
     if( is_operand(infix[i]) ) {
       was_buffer_exceeded = push_to_stack(infix[i], rpn, rpn_buffersize);
     }
-    else if( is_open_paren(infix[i]) || is_closed_paren(infix[i]) ) {
+    else if( is_open_paren(infix[i]) ) {
       was_buffer_exceeded = push_to_stack(infix[i], operator_stack, operator_stack_buffersize);
+    }
+    else if( is_closed_paren(infix[i]) ) {
+      tmp_token = pop_from_stack(operator_stack);
+      while( !is_open_paren(tmp_token) ) {
+        was_buffer_exceeded = push_to_stack(tmp_token, rpn, rpn_buffersize);
+        tmp_token = pop_from_stack(operator_stack);
+      }
     }
     else if( is_operator(infix[i]) ) {
       operator_stack_length = strlen(operator_stack);
@@ -57,14 +64,9 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
   operator_stack_length = strlen(operator_stack);
 
   while( operator_stack_length ) {
-    tmp_token = pop_from_stack(operator_stack);
-    if( is_open_paren(tmp_token) || is_closed_paren(tmp_token) ) {
-      continue;
-    }
-    else if( is_operator(tmp_token) ) {
-        was_buffer_exceeded = push_to_stack(tmp_token, rpn, rpn_buffersize);
-    }
     operator_stack_length = strlen(operator_stack);
+    was_buffer_exceeded = push_to_stack(pop_from_stack(operator_stack), rpn, rpn_buffersize);
   }
+
   return was_buffer_exceeded;
 }
