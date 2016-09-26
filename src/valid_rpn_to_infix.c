@@ -6,21 +6,21 @@
 
 static int find_operand_start(const char *infix, const int operand_end) {
   int i;
-  int number_of_open_bracket = 0;
-  int number_of_closed_brackets = 0;
+  int number_of_open_paren = 0;
+  int number_of_closed_parens = 0;
 
   if( is_operand(infix[operand_end]) ) {
     return operand_end;
   }
 
   for(i = operand_end; i >= 0; --i) {
-    if( is_closed_bracket(infix[i]) ) {
-      ++number_of_closed_brackets;
+    if( is_closed_paren(infix[i]) ) {
+      ++number_of_closed_parens;
     }
-    else if( is_open_bracket(infix[i]) ) {
-      ++number_of_open_bracket;
+    else if( is_open_paren(infix[i]) ) {
+      ++number_of_open_paren;
     }
-    if(number_of_closed_brackets == number_of_open_bracket) {
+    if(number_of_closed_parens == number_of_open_paren) {
       return i;
     }
   }
@@ -34,7 +34,7 @@ static int find_first_operand_start(const char *infix, const int operand_end) {
   return find_operand_start(infix, operand_end);
 }
 
-static bool make_space_for_operator_and_brackets(char *infix, const int infix_buffersize) {
+static bool make_space_for_operator_and_parens(char *infix, const int infix_buffersize) {
   int i;
   bool was_buffer_exceeded = true;
 
@@ -51,7 +51,7 @@ static bool make_space_for_operator(char *infix, const int infix_buffersize) {
   return was_buffer_exceeded;
 }
 
-static bool insert_operator_and_brackets(const int first_operand_start,
+static bool insert_operator_and_parens(const int first_operand_start,
                       const int second_operand_start,
                       const char operation,
                       char *infix, const int infix_buffersize) {
@@ -61,7 +61,7 @@ static bool insert_operator_and_brackets(const int first_operand_start,
   int i = second_operand_end;
   int i_new = i + OFFSET_FOR_OPERATOR_AND_BRACKETS;
 
-  was_buffer_exceeded = make_space_for_operator_and_brackets(infix, infix_buffersize);
+  was_buffer_exceeded = make_space_for_operator_and_parens(infix, infix_buffersize);
 
   if(was_buffer_exceeded)
     return was_buffer_exceeded;
@@ -130,7 +130,7 @@ bool valid_rpn_to_infix(const char *rpn, char *infix, const int infix_buffersize
               rpn[i], infix, infix_buffersize);
       }
       else {
-        was_buffer_exceeded = insert_operator_and_brackets(first_operand_start, second_operand_start,
+        was_buffer_exceeded = insert_operator_and_parens(first_operand_start, second_operand_start,
               rpn[i], infix, infix_buffersize);
       }
     }

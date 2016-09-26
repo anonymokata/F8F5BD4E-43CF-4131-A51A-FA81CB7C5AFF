@@ -15,57 +15,57 @@ static bool has_valid_characters(const char *infix_string) {
   return true;
 }
 
-static int count_open_brackets(const char *infix_string) {
+static int count_open_parens(const char *infix_string) {
   int i;
-  int open_bracket_count = 0;
+  int open_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
     if( infix_string[i] == ')' ) {
-      ++open_bracket_count;
+      ++open_paren_count;
     }
   }
-  return open_bracket_count;
+  return open_paren_count;
 }
 
-static int count_closed_brackets(const char *infix_string) {
+static int count_closed_parens(const char *infix_string) {
   int i;
-  int closed_bracket_count = 0;
+  int closed_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
     if( infix_string[i] == '(' ) {
-      ++closed_bracket_count;
+      ++closed_paren_count;
     }
   }
-  return closed_bracket_count;
+  return closed_paren_count;
 }
 
-static bool has_equal_number_of_open_close_brackets(const char *infix_string) {
-  if( count_open_brackets(infix_string) == count_closed_brackets(infix_string) ) {
+static bool has_equal_number_of_open_close_parens(const char *infix_string) {
+  if( count_open_parens(infix_string) == count_closed_parens(infix_string) ) {
     return true;
   }
   return false;
 
 }
 
-static bool has_open_brackets_before_closed_brackets(const char *infix_string) {
+static bool has_open_parens_before_closed_parens(const char *infix_string) {
   int i;
-  int closed_bracket_count = 0;
-  int open_bracket_count = 0;
+  int closed_paren_count = 0;
+  int open_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
     if( infix_string[i] == '(' ) {
-      ++open_bracket_count;
+      ++open_paren_count;
     }
     if( infix_string[i] == ')' ) {
-      ++closed_bracket_count;
+      ++closed_paren_count;
     }
-    if( closed_bracket_count > open_bracket_count )
+    if( closed_paren_count > open_paren_count )
       return false;
   }
   return true;
 }
 
-static bool has_no_empty_brackets(const char *infix_string) {
+static bool has_no_empty_parens(const char *infix_string) {
   int i;
   const int infix_length = strlen(infix_string);
 
@@ -78,7 +78,7 @@ static bool has_no_empty_brackets(const char *infix_string) {
   return true;
 }
 
-static bool has_no_closed_bracket_operand(const char *infix_string) {
+static bool has_no_closed_paren_operand(const char *infix_string) {
   int i;
   const int infix_length = strlen(infix_string);
 
@@ -91,7 +91,7 @@ static bool has_no_closed_bracket_operand(const char *infix_string) {
   return true;
 }
 
-static bool has_no_operand_open_bracket(const char *infix_string) {
+static bool has_no_operand_open_paren(const char *infix_string) {
   int i;
   const int infix_length = strlen(infix_string);
 
@@ -104,12 +104,12 @@ static bool has_no_operand_open_bracket(const char *infix_string) {
   return true;
 }
 
-static bool has_valid_brackets(const char *infix_string) {
-  if( has_equal_number_of_open_close_brackets(infix_string) &&
-      has_open_brackets_before_closed_brackets(infix_string) &&
-      has_no_empty_brackets(infix_string) &&
-      has_no_closed_bracket_operand(infix_string) &&
-      has_no_operand_open_bracket(infix_string) ) {
+static bool has_valid_parens(const char *infix_string) {
+  if( has_equal_number_of_open_close_parens(infix_string) &&
+      has_open_parens_before_closed_parens(infix_string) &&
+      has_no_empty_parens(infix_string) &&
+      has_no_closed_paren_operand(infix_string) &&
+      has_no_operand_open_paren(infix_string) ) {
     return true;
   }
   return false;
@@ -139,7 +139,7 @@ bool is_valid_infix(const char *infix_string) {
   return !is_null_string(infix_string) &&
       !is_empty_string(infix_string) &&
       has_valid_characters(infix_string) &&
-      has_valid_brackets(infix_string) &&
+      has_valid_parens(infix_string) &&
       is_valid_operand_operator_operand_sequence(infix_string) &&
       has_no_operator_first(infix_string);
 }

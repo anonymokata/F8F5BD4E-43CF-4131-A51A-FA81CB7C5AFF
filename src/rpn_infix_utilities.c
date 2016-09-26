@@ -3,11 +3,11 @@
 
 #define END_OF_STRING_CHARACTER '\0'
 
-bool is_open_bracket(const char character) {
+bool is_open_paren(const char character) {
   return character == '(';
 }
 
-bool is_closed_bracket(const char character) {
+bool is_closed_paren(const char character) {
   return character == ')';
 }
 
