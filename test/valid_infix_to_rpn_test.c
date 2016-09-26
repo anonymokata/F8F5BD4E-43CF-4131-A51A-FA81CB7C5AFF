@@ -6,6 +6,7 @@
 START_TEST(When_Given_a_Returns_a_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "a";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -18,6 +19,7 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "a";
   const int buffer_size_too_small = 1;
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, buffer_size_too_small);
 
@@ -29,6 +31,7 @@ END_TEST
 START_TEST(When_Given_a_PLUS_b_Returns_a_b_PLUS_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "a+b";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -40,6 +43,7 @@ END_TEST
 START_TEST(When_Given_OBR_a_PLUS_b_CBE_Returns_a_b_PLUS_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "(a+b)";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -51,6 +55,7 @@ END_TEST
 START_TEST(When_Given_OBR_c_SUB_d_CBE_Returns_c_d_SUB_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "(c-d)";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -62,6 +67,7 @@ END_TEST
 START_TEST(When_Given_OBR_e_MULT_f_CBE_Returns_e_f_MULT_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "e*f";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -73,6 +79,7 @@ END_TEST
 START_TEST(When_Given_g_Returns_g_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "g";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -84,6 +91,7 @@ END_TEST
 START_TEST(When_Given_h_SUB_i_SUB_j_Returns_h_i_j_2SUB_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "h-i-j";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
@@ -95,6 +103,7 @@ END_TEST
 START_TEST(When_Given_l_DIV_m_POW_n_Returns_l_m_n_POW_DIV_And_Success) {
   char rpn[RPN_BUFFER_SIZE];
   const char infix[] = "l/(m^n)";
+  strcpy(rpn,"");
 
   bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
