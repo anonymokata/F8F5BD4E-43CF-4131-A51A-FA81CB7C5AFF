@@ -28,9 +28,33 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure) {
 }
 END_TEST
 
-START_TEST(When_Given_Emply_String_Returns_Empty_String_And_Success) {
+START_TEST(When_Given_Empty_String_Returns_Empty_String_And_Failure) {
   char infix[INFIX_BUFFER_SIZE];
   const char rpn[] = "";
+  strcpy(infix,"");
+
+  bool return_value = rpn_to_infix(rpn, infix, INFIX_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+  ck_assert_str_eq(infix, "");
+}
+END_TEST
+
+START_TEST(When_Given_423_String_Returns_Empty_String_And_Failure) {
+  char infix[INFIX_BUFFER_SIZE];
+  const char rpn[] = "423";
+  strcpy(infix,"");
+
+  bool return_value = rpn_to_infix(rpn, infix, INFIX_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+  ck_assert_str_eq(infix, "");
+}
+END_TEST
+
+START_TEST(When_Given_a_ADD_b_Returns_Empty_String_And_Failure) {
+  char infix[INFIX_BUFFER_SIZE];
+  const char rpn[] = "a+b";
   strcpy(infix,"");
 
   bool return_value = rpn_to_infix(rpn, infix, INFIX_BUFFER_SIZE);
@@ -49,6 +73,9 @@ int main(void) {
   suite_add_tcase(s1, tc1_1);
   tcase_add_test(tc1_1, When_Given_a_Returns_a_And_Success);
   tcase_add_test(tc1_1, When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure);
+  tcase_add_test(tc1_1, When_Given_Empty_String_Returns_Empty_String_And_Failure);
+  tcase_add_test(tc1_1, When_Given_423_String_Returns_Empty_String_And_Failure);
+  tcase_add_test(tc1_1, When_Given_a_ADD_b_Returns_Empty_String_And_Failure);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
