@@ -21,7 +21,7 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure) {
   const int buffer_size_too_small = 1;
   strcpy(rpn,"");
 
-  bool return_value = valid_infix_to_rpn(infix, rpn, buffer_size_too_small);
+  bool return_value = infix_to_rpn(infix, rpn, buffer_size_too_small);
 
   ck_assert(return_value == true);
   ck_assert_str_eq(rpn, "");
