@@ -49,6 +49,18 @@ static char pop_from_stack(char *stack) {
   return token;
 }
 
+static bool apply_remaining_operators_to_rpn(char *operator_stack, char *rpn, const int rpn_buffersize) {
+  bool was_buffer_exceeded = false;
+  int operator_stack_length = strlen(operator_stack);
+
+  while( operator_stack_length ) {
+    operator_stack_length = strlen(operator_stack);
+    was_buffer_exceeded = push_to_stack(pop_from_stack(operator_stack), rpn, rpn_buffersize);
+  }
+
+  return was_buffer_exceeded;
+}
+
 bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) {
   bool rpn_buffer_was_exceeded = false;
   bool operator_stack_buffer_was_exceeded = false;
@@ -84,14 +96,12 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
       }
       operator_stack_buffer_was_exceeded = push_to_stack(infix[i], operator_stack, operator_stack_buffersize);
     }
+    if(rpn_buffer_was_exceeded || operator_stack_buffer_was_exceeded) {
+      return true;
+    }
   }
 
-  operator_stack_length = strlen(operator_stack);
-
-  while( operator_stack_length ) {
-    operator_stack_length = strlen(operator_stack);
-    rpn_buffer_was_exceeded = push_to_stack(pop_from_stack(operator_stack), rpn, rpn_buffersize);
-  }
+  rpn_buffer_was_exceeded = apply_remaining_operators_to_rpn(operator_stack, rpn, rpn_buffersize);
 
   return (rpn_buffer_was_exceeded || operator_stack_buffer_was_exceeded);
 }
