@@ -6,6 +6,12 @@
 static int get_operator_order(const char operator) {
   int order = 0;
   switch(operator) {
+    case '^':
+      order = 5;
+      break;
+    case '/':
+      order = 4;
+      break;
     case '*':
       order = 3;
       break;
