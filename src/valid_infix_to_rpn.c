@@ -18,8 +18,9 @@ static int get_operator_order(const char operator) {
     case '-':
       order = 2;
       break;
-    default:
-      order = 0;
+    case '+':
+      order = 1;
+      break;
   }
   return order;
 }
