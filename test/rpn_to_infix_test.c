@@ -87,6 +87,16 @@ START_TEST(When_Given_Null_Infix_Pointer_Returns_Failure) {
 }
 END_TEST
 
+START_TEST(When_Given_Null_RPN_Pointer_Returns_Failure) {
+  char infix[INFIX_BUFFER_SIZE];
+  strcpy(infix,"");
+
+  bool return_value = rpn_to_infix(0, infix, INFIX_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("rpn_to_infix_tests");
@@ -101,6 +111,7 @@ int main(void) {
   tcase_add_test(tc1_1, When_Given_a_ADD_b_Returns_Empty_String_And_Failure);
   tcase_add_test(tc1_1, When_Given_l_m_PLUS_n_o_SUB_p_PLUS_q_r_s_t_POW_MULT_PLUS_POW_MULT_Returns_OBR_l_PLUS_m_CBR_MULT_3OBR_n_SUB_o_CBR_PLUS_p_CBR_POW_OBR_r_MULT_OBR_r_OBR_s_POW_t_4CBR_And_Success);
   tcase_add_test(tc1_1, When_Given_Null_Infix_Pointer_Returns_Failure);
+  tcase_add_test(tc1_1, When_Given_Null_RPN_Pointer_Returns_Failure);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
