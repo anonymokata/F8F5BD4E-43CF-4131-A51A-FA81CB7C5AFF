@@ -28,11 +28,23 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure) {
 }
 END_TEST
 
-START_TEST(WhenGivenNullReturnsFalse) {
+START_TEST(When_Given_Null_Returns_Empty_String_And_Failure) {
   char rpn[RPN_BUFFER_SIZE];
   strcpy(rpn,"");
 
   bool return_value = infix_to_rpn(0, rpn, RPN_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+  ck_assert_str_eq(rpn, "");
+}
+END_TEST
+
+START_TEST(When_Given_83738_Returns_Empty_String_And_Failure) {
+  char rpn[RPN_BUFFER_SIZE];
+  const char infix[] = "83738";
+  strcpy(rpn,"");
+
+  bool return_value = infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
 
   ck_assert(return_value == true);
   ck_assert_str_eq(rpn, "");
@@ -48,7 +60,8 @@ int main(void) {
   suite_add_tcase(s1, tc1_1);
   tcase_add_test(tc1_1, When_Given_a_Returns_a_And_Success);
   tcase_add_test(tc1_1, When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure);
-  tcase_add_test(tc1_1, WhenGivenNullReturnsFalse);
+  tcase_add_test(tc1_1, When_Given_Null_Returns_Empty_String_And_Failure);
+  tcase_add_test(tc1_1, When_Given_83738_Returns_Empty_String_And_Failure);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
