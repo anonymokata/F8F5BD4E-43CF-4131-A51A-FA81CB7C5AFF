@@ -74,6 +74,16 @@ START_TEST(When_Given_Null_RPN_Pointer_Returns_Failure) {
 }
 END_TEST
 
+START_TEST(When_Given_Null_Infix_Pointer_Returns_Failure) {
+  char rpn[RPN_BUFFER_SIZE];
+  strcpy(rpn,"");
+
+  bool return_value = infix_to_rpn(0, rpn, RPN_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("infix_to_rpn_tests");
