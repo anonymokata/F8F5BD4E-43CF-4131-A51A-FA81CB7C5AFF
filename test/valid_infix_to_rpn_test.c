@@ -172,6 +172,18 @@ START_TEST(When_Given_2OBR_v_DIV_w_CBR_POW_x_CBR_MULT_OBR_y_SUB_z_CBR_Returns_v_
 }
 END_TEST
 
+START_TEST(When_Given_OBR_a_ADD_g_CBR_MULT_3OOBR_b_SUB_a_CBR_ADD_c_POW_OBR_c_OBR_e_OBR_d_POW_f_4CBR_Returns_a_g_ADD_b_a_SUB_c_ADD_c_e_d_f_POW__MULT_ADD_POW_MULT_And_Success) {
+  char rpn[RPN_BUFFER_SIZE];
+  const char infix[] = "(a+g)*(((b-a)+c)^(c+(e*(d^f))))";
+  strcpy(rpn,"");
+
+  bool return_value = valid_infix_to_rpn(infix, rpn, RPN_BUFFER_SIZE);
+
+  ck_assert(return_value == false);
+  ck_assert_str_eq(rpn, "ag+ba-c+cedf^*+^*");
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("valid_infix_to_rpn_tests");
@@ -193,6 +205,7 @@ int main(void) {
   tcase_add_test(tc1_1, When_Given_a_POW_b_POW_c_MULT_d_POW_e_Returns_a_b_POW_c_POW_d_MULT_e_POW_And_Success);
   tcase_add_test(tc1_1, When_Given_2OBR_l_DIV_OBR_m_POW_n_2CBR_MULT_o_CBR_p_Returns_l_m_n_POW_DIV_o_MULT_p_SUB_And_Success);
   tcase_add_test(tc1_1, When_Given_2OBR_v_DIV_w_CBR_POW_x_CBR_MULT_OBR_y_SUB_z_CBR_Returns_v_w_DIV_x_POW_y_z_SUB_MULT_And_Success);
+  tcase_add_test(tc1_1, When_Given_OBR_a_ADD_g_CBR_MULT_3OOBR_b_SUB_a_CBR_ADD_c_POW_OBR_c_OBR_e_OBR_d_POW_f_4CBR_Returns_a_g_ADD_b_a_SUB_c_ADD_c_e_d_f_POW__MULT_ADD_POW_MULT_And_Success);
 
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
