@@ -76,6 +76,17 @@ START_TEST(When_Given_l_m_PLUS_n_o_SUB_p_PLUS_q_r_s_t_POW_MULT_PLUS_POW_MULT_Ret
 }
 END_TEST
 
+START_TEST(When_Given_Null_Infix_Pointer_Returns_Failure) {
+  char infix[INFIX_BUFFER_SIZE];
+  const char rpn[] = "a";
+  strcpy(infix,"");
+
+  bool return_value = rpn_to_infix(rpn, NULL, INFIX_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("rpn_to_infix_tests");
