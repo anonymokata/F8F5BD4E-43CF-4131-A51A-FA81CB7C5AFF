@@ -3,26 +3,26 @@
 
 #include <string.h>
 
-static int get_operator_order(const char operator) {
-  int order = 0;
+static int get_operator_precedence(const char operator) {
+  int precedence = 0;
   switch(operator) {
     case '^':
-      order = 5;
+      precedence = 5;
       break;
     case '/':
-      order = 4;
+      precedence = 4;
       break;
     case '*':
-      order = 3;
+      precedence = 3;
       break;
     case '-':
-      order = 2;
+      precedence = 2;
       break;
     case '+':
-      order = 1;
+      precedence = 1;
       break;
   }
-  return order;
+  return precedence;
 }
 
 static int number_of_operands(const char *infix) {
@@ -80,7 +80,7 @@ static bool apply_operator_precedence(const char infix, char *operator_stack, ch
   const int operator_stack_length = strlen(operator_stack);
 
   if(operator_stack_length >= 1 && is_operator(operator_stack[operator_stack_length-1]) ){
-    if( get_operator_order(infix) <= get_operator_order(operator_stack[operator_stack_length-1]) ) {
+    if( get_operator_precedence(infix) <= get_operator_precedence(operator_stack[operator_stack_length-1]) ) {
       rpn_buffer_was_exceeded = push_to_stack(pop_from_stack(operator_stack), rpn, rpn_buffersize);
     }
   }
@@ -92,10 +92,6 @@ bool valid_infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) 
   bool operator_stack_buffer_was_exceeded = false;
   int i;
   const int infix_length = strlen(infix);
-  /*
-  int operator_stack_length;
-  char tmp_token;
-*/
   const int operator_stack_buffersize = infix_length - number_of_operands(infix) + 1;
   char operator_stack[operator_stack_buffersize];
   strcpy(operator_stack,"");
