@@ -64,3 +64,7 @@ The following conversion routines are available to the user:
 ## Additional Rules
 - No blank or null pointer inputs are allowed.
 - Spaces are not valid input characters.
+
+## Algorithm Implementation Notes
+- The RPN to infix algorithm was homegrown.
+- The Infix to RPN algorithm was guided by the Shunting-yard algorithm (https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
