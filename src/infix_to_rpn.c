@@ -2,7 +2,7 @@
 #include "valid_infix_to_rpn.h"
 
 bool infix_to_rpn(const char *infix, char *rpn, const int rpn_buffersize) {
-  if( is_valid_infix(infix) ) {
+  if( is_valid_infix(infix) && rpn != 0 ) {
     return valid_infix_to_rpn(infix, rpn, rpn_buffersize);
   }
   else {

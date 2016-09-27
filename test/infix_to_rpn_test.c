@@ -63,6 +63,17 @@ START_TEST(When_Given_OBR_a_ADD_g_CBR_MULT_3OOBR_b_SUB_a_CBR_ADD_c_POW_OBR_c_OBR
 }
 END_TEST
 
+START_TEST(When_Given_Null_RPN_Pointer_Returns_Failure) {
+  char rpn[RPN_BUFFER_SIZE];
+  const char infix[] = "a";
+  strcpy(rpn,"");
+
+  bool return_value = infix_to_rpn(infix, 0, RPN_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("infix_to_rpn_tests");
@@ -75,6 +86,8 @@ int main(void) {
   tcase_add_test(tc1_1, When_Given_Null_Returns_Empty_String_And_Failure);
   tcase_add_test(tc1_1, When_Given_83738_Returns_Empty_String_And_Failure);
   tcase_add_test(tc1_1, When_Given_OBR_a_ADD_g_CBR_MULT_3OOBR_b_SUB_a_CBR_ADD_c_POW_OBR_c_OBR_e_OBR_d_POW_f_4CBR_Returns_a_g_ADD_b_a_SUB_c_ADD_c_e_d_f_POW__MULT_ADD_POW_MULT_And_Success);
+  tcase_add_test(tc1_1, When_Given_Null_RPN_Pointer_Returns_Failure);
+
   srunner_run_all(sr, CK_ENV);
   nf = srunner_ntests_failed(sr);
   srunner_free(sr);
