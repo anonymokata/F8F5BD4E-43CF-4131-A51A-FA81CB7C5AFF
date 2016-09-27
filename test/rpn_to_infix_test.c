@@ -28,6 +28,18 @@ START_TEST(When_Buffer_Size_Is_Too_Small_Returns_Empty_And_Failure) {
 }
 END_TEST
 
+START_TEST(When_Given_Emply_String_Returns_Empty_String_And_Success) {
+  char infix[INFIX_BUFFER_SIZE];
+  const char rpn[] = "";
+  strcpy(infix,"");
+
+  bool return_value = rpn_to_infix(rpn, infix, INFIX_BUFFER_SIZE);
+
+  ck_assert(return_value == true);
+  ck_assert_str_eq(infix, "");
+}
+END_TEST
+
 int main(void) {
   Suite *s1 = suite_create("Core");
   TCase *tc1_1 = tcase_create("rpn_to_infix_tests");
