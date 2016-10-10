@@ -20,7 +20,7 @@ static int count_open_parens(const char *infix_string) {
   int open_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
-    if( infix_string[i] == ')' ) {
+    if( is_open_paren(infix_string[i]) ) {
       ++open_paren_count;
     }
   }
@@ -32,7 +32,7 @@ static int count_closed_parens(const char *infix_string) {
   int closed_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
-    if( infix_string[i] == '(' ) {
+    if( is_closed_paren(infix_string[i]) ) {
       ++closed_paren_count;
     }
   }
@@ -53,10 +53,10 @@ static bool has_open_parens_before_closed_parens(const char *infix_string) {
   int open_paren_count = 0;
 
   for(i=0; i < strlen(infix_string); ++i) {
-    if( infix_string[i] == '(' ) {
+    if( is_open_paren(infix_string[i]) ) {
       ++open_paren_count;
     }
-    if( infix_string[i] == ')' ) {
+    if( is_closed_paren(infix_string[i]) ) {
       ++closed_paren_count;
     }
     if( closed_paren_count > open_paren_count )
@@ -70,8 +70,8 @@ static bool has_no_empty_parens(const char *infix_string) {
   const int infix_length = strlen(infix_string);
 
   for(i=0; i < infix_length; ++i) {
-    if( (infix_string[i] == '(') && ((i+1) != infix_length) &&
-        (infix_string[i+1] == ')')) {
+    if( is_open_paren(infix_string[i]) && ((i+1) != infix_length) &&
+        is_closed_paren(infix_string[i+1]) ) {
           return false;
     }
   }
@@ -83,7 +83,7 @@ static bool has_no_closed_paren_operand(const char *infix_string) {
   const int infix_length = strlen(infix_string);
 
   for(i=0; i < infix_length; ++i) {
-    if( (infix_string[i] == ')') && ((i+1) != infix_length) &&
+    if( is_closed_paren(infix_string[i]) && ((i+1) != infix_length) &&
         (is_operand(infix_string[i+1])) ) {
       return false;
     }
@@ -97,7 +97,7 @@ static bool has_no_operand_open_paren(const char *infix_string) {
 
   for(i=0; i < infix_length; ++i) {
     if( is_operand(infix_string[i]) && ((i+1) != infix_length) &&
-        (infix_string[i+1] == '(') ) {
+        is_open_paren(infix_string[i+1]) ) {
           return false;
     }
   }
